@@ -61,3 +61,28 @@ lena_h3 = conv2(h3, lena);
  
 %% Point Operation Enhancement
 tire = imread('images/tire.tif');
+
+% figure
+% imhist(tire);
+ 
+% neg_tire = imcomplement(tire);
+% 
+% figure
+% imhist(neg_tire);
+ 
+p1_tire = int8(double(tire) .^ (0.5));
+p2_tire = int8(double(tire) .^ (1.3));
+ 
+figure
+imhist(p1_tire);
+figure
+imshow(p1_tire);
+ 
+ 
+figure
+imhist(p2_tire);
+figure
+imshow(p2_tire);
+ 
+figure
+histeq(tire)
