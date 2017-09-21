@@ -11,17 +11,30 @@ img_a_camera = img_a_camera(1:size(img_a_camera,1) - rem_x, 1:size(img_a_camera,
 img_b_small = imresize(img_a_camera, 0.25, 'bilinear');
  
 % Nearest Neighbor
-img_b_near = imresize(img_b_small, 4, 'nearest');
-error_near_cameraman = psnr(img_a_camera, img_b_near);
+img_b_near_camera = imresize(img_b_small, 4, 'nearest');
+error_near_cameraman = psnr(img_a_camera, img_b_near_camera);
  
 % Bilinear Interpolation
-img_b_bil = imresize(img_b_small, 4, 'bilinear');
-error_bil_cameraman = psnr(img_a_camera, img_b_bil);
+img_b_bil_camera = imresize(img_b_small, 4, 'bilinear');
+error_bil_cameraman = psnr(img_a_camera, img_b_bil_camera);
  
 % Cubic Interpolation
-img_b_cubic = imresize(img_b_small, 4, 'cubic');
-error_cubic_cameraman = psnr(img_a_camera, img_b_cubic);
- 
+img_b_cubic_camera = imresize(img_b_small, 4, 'cubic');
+error_cubic_cameraman = psnr(img_a_camera, img_b_cubic_camera);
+
+% Show pictures
+figure;
+imshow(img_a_camera);
+
+figure;
+imshow(img_b_near_camera);
+
+figure;
+imshow(img_b_bil_camera);
+
+figure;
+imshow(img_b_cubic_camera);
+
 %% Lena PSNR
 img_a_lena = imread('images/lena.tiff');
 img_a_lena = rgb2gray(img_a_lena);
@@ -32,19 +45,31 @@ img_a_lena = img_a_lena(1:size(img_a_lena,1) - rem_x, 1:size(img_a_lena, 2) - re
       
 img_b_small = imresize(img_a_lena, 0.25, 'bilinear');
  
-%% Nearest Neighbor
-img_b_near = imresize(img_b_small, 4, 'nearest');
-error_near_lena = psnr(img_a_lena, img_b_near);
+% Nearest Neighbor
+img_b_near_lena = imresize(img_b_small, 4, 'nearest');
+error_near_lena = psnr(img_a_lena, img_b_near_lena);
  
-%% Bilinear Interpolation
-img_b_bil = imresize(img_b_small, 4, 'bilinear');
-error_bil_lena = psnr(img_a_lena, img_b_bil);
+% Bilinear Interpolation
+img_b_bil_lena = imresize(img_b_small, 4, 'bilinear');
+error_bil_lena = psnr(img_a_lena, img_b_bil_lena);
  
-%% Cubic Interpolation
-img_b_cubic = imresize(img_b_small, 4, 'cubic');
-error_cubic_lena = psnr(img_a_lena, img_b_cubic);
+% Cubic Interpolation
+img_b_cubic_lena = imresize(img_b_small, 4, 'cubic');
+error_cubic_lena = psnr(img_a_lena, img_b_cubic_lena);
  
- 
+
+% Show pictures
+figure;
+imshow(img_a_lena);
+
+figure;
+imshow(img_b_near_lena);
+
+figure;
+imshow(img_b_bil_lena);
+
+figure;
+imshow(img_b_cubic_lena);
 %% Lena Convolution
 lena = imread('images/lena.tiff');
 lena = rgb2gray(lena);
@@ -58,7 +83,15 @@ h3 = [-1 1];
 lena_h1 = conv2(h1, lena);
 lena_h2 = conv2(h2, lena);
 lena_h3 = conv2(h3, lena);
- 
+
+figure;
+imshow(lena_h1);
+
+figure;
+imshow(lena_h2);
+
+figure;
+imshow(lena_h3);
 %% Point Operation Enhancement
 tire = imread('images/tire.tif');
 
