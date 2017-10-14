@@ -12,19 +12,35 @@ f_speckle = imnoise(f, 'speckle', 0.04);
 
 figure;
 imshow(f);
-title('Original Synthetic Toy Image');
+% title('Original Synthetic Toy Image');
+
+figure;
+imhist(f);
+% title('Original Synthetic Toy Image Histogram');
 
 figure;
 imshow(f_gauss);
-title('Synthetic Toy Image with Gaussian Noise');
+% title('Synthetic Toy Image with Gaussian Noise');
+
+figure;
+imhist(f_gauss);
+% title('Synthetic Toy Image with Gaussian Noise Histogram');
 
 figure;
 imshow(f_sp);
-title('Synthetic Toy Image with S&P Noise');
+% title('Synthetic Toy Image with S&P Noise');
+
+figure;
+imhist(f_sp);
+% title('Synthetic Toy Image with S&P Noise Histogram');
 
 figure;
 imshow(f_speckle);
-title('Synthetic Toy Image with Speckle Noise');
+% title('Synthetic Toy Image with Speckle Noise');
+
+figure;
+imhist(f_speckle);
+% title('Synthetic Toy Image with Speckle Noise Histogram');
 
 %% 3.0 Noise Reduction in the Spatial Domain
 
@@ -46,9 +62,9 @@ title('Lena Image with Gaussian Noise');
 
 % Create the filter
 filter_avg = fspecial('average');
-colormap(gray);
 
 figure;
+colormap(gray);
 imagesc(filter_avg);
 
 % Apply the filter
