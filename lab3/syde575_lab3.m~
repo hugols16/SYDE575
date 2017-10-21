@@ -34,24 +34,24 @@ lena = rgb2gray(lena);
 lena = im2double(lena);
 
 lena_fft = fft2(lena);
-lena_fft = fftshift(lena_fft);
+% lena_fft = log(abs(lena_fft));
+% lena_fft = fftshift(lena_fft);
 
 F_Mag = abs(lena_fft);
 F_Phase = exp(1i*angle(lena_fft));
 
+figure;
+imshow(mag,[-1 200],'InitialMagnification','fit','Colormap', jet); colorbar;
 
 figure;
-imshow(F_Mag,[-1 200],'InitialMagnification','fit','Colormap', jet); colorbar;
-
-figure;
-imshow(angle(F_Phase),[-pi pi],'InitialMagnification','fit', 'Colormap', jet); colorbar;
+imshow(phase,[-pi pi],'InitialMagnification','fit', 'Colormap', jet); colorbar;
 
 % Reconstructing from magnitude and phase only
 I_Mag = log(abs(ifft2(F_Mag*exp(1i*0)))+1);
 I_Phase = ifft2(F_Phase);
 
 figure;
-imshow(I_Mag);
+imshow(abs(I_mag), [min(min(I_Mag)) max(max(I_Mag))]););
 
 figure;
-imshow(abs(I_Phase), [min(min(abs(I_Phase))) max(max(abs(I_Phase)))]);
+imshow(abs(I_Phase), [min(min(I_Phase)) max(max(I_Phase))]);
