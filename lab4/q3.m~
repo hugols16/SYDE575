@@ -1,0 +1,14 @@
+clear all
+close all
+
+f = im2double(imread('images/degraded.tif'));
+
+% imshow(f);
+% rect = getrect
+
+flat_region = f(11:65, 6:56);
+
+
+f_new = lee_filter(f, flat_region);
+
+psnr_F = psnr(f_new);
