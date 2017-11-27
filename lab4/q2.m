@@ -6,24 +6,29 @@ f = im2double(imread('images/cameraman.tif'));
 hfreq = fft2(h, size(f,1), size(f,2));  % pad h
 fblur = real(ifft2(hfreq.*fft2(f)));
 
-psnr(f, fblur);
+figure;
+imshow(fblur);
+psnr_blur = psnr(f, fblur);
 
 corrected = real(ifft2(fft2(fblur) ./ hfreq));
-psnr(f, corrected);
+psnr_corrected = psnr(f, corrected);
+figure;
 imshow(corrected);
 
-fblur = imnoise(fblur, 'gaussian',0, 0.002);
-corrected_gaussian = real(ifft2(fft2(fblur) ./ hfreq));
-psnr(f, corrected_gaussian);
+% With Gaussian Noise
+f_gnoise = imnoise(fblur, 'gaussian',0, 0.002);
+corrected_gaussian = real(ifft2(fft2(f_gnoise) ./ hfreq));
+psnr_gaussian = psnr(f, corrected_gaussian);
+figure;
 imshow(corrected_gaussian);
 
-corrected_wiener = deconvwnr(fblur, real(ifft2(hfreq)), 50);
 
-% figure
-% imshow(fblur);
-% figure
+% Corrected Wiener
+noise_var = 0.002;
+NSR = noise_var/var(f(:));
+
+corrected_wiener = deconvwnr(f_gnoise, h, NSR);
+
+figure;
 imshow(corrected_wiener);
-
-
-
-
+psnr_wiener = psnr(f, corrected_wiener);
